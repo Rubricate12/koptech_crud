@@ -1,6 +1,7 @@
 
-## 🚀 Getting Started
+## KOPTECH
 
+Simple CRUD app with Flask Python
 Follow these instructions to get a local copy up and running.
 
 ### Prerequisites
