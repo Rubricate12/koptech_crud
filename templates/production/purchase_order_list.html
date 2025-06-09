@@ -1,0 +1,48 @@
+{% extends "layouts/base_production.html" %} {% block title %}View Purchase
+Orders{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>View Purchase Orders</h1>
+</div>
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>PO ID</th>
+        <th>Company Name</th>
+        <th>Company Address</th>
+        <th>Material ID</th>
+        <th>Vendor ID</th>
+        <th>Purchase Order Qty</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for po in purchase_orders %}
+      <tr>
+        <td>{{ po.po_id }}</td>
+        <td>{{ po.company_name }}</td>
+        <td>{{ po.company_address }}</td>
+        <td>{{ po.material_id }}</td>
+        <td>{{ po.vendor_id }}</td>
+        <td>{{ po.purchase_order_qty }}</td>
+        <td>
+          <form
+            action="{{ url_for('approve_production_purchase_order', po_id=po.po_id) }}"
+            method="post"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-approve">Approve</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" style="text-align: center">
+          No purchase orders to view.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.venv/
+env/
+.env
+
+# Instance Folder (for Flask secrets)
+/instance
+
+# Editor and OS Files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment variables
+*.env
+
+# Other
+.pytest_cache/
+.coverage
+htmlcov/

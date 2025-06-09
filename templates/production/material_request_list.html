@@ -1,0 +1,70 @@
+{% extends "layouts/base_production.html" %} {% block title %}Material
+Requests{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Material Requests</h1>
+  <div class="actions">
+    <a href="{{ url_for('add_material_request') }}" class="btn btn-primary"
+      >Add Material Request</a
+    >
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Request ID</th>
+        <th>Material ID</th>
+        <th>Material Type</th>
+        <th>Demand Quantity</th>
+        <th>Request Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for req in requests %}
+      <tr>
+        <td>{{ req.request_id }}</td>
+
+        <td>{{ req.material_id }}</td>
+
+        <td>{{ req.material_type }}</td>
+
+        <td>{{ req.demand_qty }}</td>
+
+        <td>{{ req.request_date.strftime('%Y-%m-%d %H:%M') }}</td>
+
+        <td>{{ req.status }}</td>
+
+        <td>
+          {% if req.status == 'Pending' %}
+          <a
+            href="{{ url_for('update_material_request', request_id=req.request_id) }}"
+            class="btn btn-edit"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('delete_material_request', request_id=req.request_id) }}"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-delete">Delete</button>
+          </form>
+          {% else %}
+          <span style="color: #6c757d">Processed</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" style="text-align: center">
+          No material requests found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

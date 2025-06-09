@@ -1,0 +1,144 @@
+-- sebelum jalanin script dibawah pastikan sudah membuat database bernama "koptech" atau bisa berbeda dapat diedit pada app.py
+-- script dibawah ini untuk database koptech
+-- TABLE BAGIAN FINANCE
+-- buat table customer_order
+CREATE TABLE customer_orders (
+    co_id VARCHAR(50) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    address TEXT NOT NULL,
+    product_id VARCHAR(50) NOT NULL,
+    payment VARCHAR(50) NOT NULL,
+    qty INT NOT NULL,
+    phone VARCHAR(20) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'Pending';
+);
+
+-- input customer dummy
+INSERT INTO customer_orders (co_id, name, address, product_id, payment, qty, phone) VALUES
+('CO-001', 'PT Sejahtera', 'Jl. Merdeka 123', 'PROD-A1', 'Paid', 10, '08123456789','Pending'),
+('CO-002', 'CV Maju Jaya', 'Jl. Sudirman 45', 'PROD-B2', 'Pending', 5, '08198765432','Pending');
+
+-- buat tabel invoice
+CREATE TABLE product_invoices (
+    product_id VARCHAR(50) PRIMARY KEY,
+    co_id VARCHAR(50) NOT NULL,
+    invoice_date DATE NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    shipping_cost DECIMAL(10, 2) NOT NULL,
+    billing_address TEXT NOT NULL,
+    FOREIGN KEY (co_id) REFERENCES customer_orders(co_id) ON DELETE CASCADE
+);
+-- isi dummy data
+INSERT INTO product_invoices (product_id, co_id, invoice_date, price, shipping_cost, billing_address) VALUES
+('INV-P-001', 'CO-001', '2025-06-01', 1500.00, 50.00, 'Jl. Merdeka 123'),
+('INV-P-002', 'CO-002', '2025-06-05', 750.00, 25.00, 'Jl. Sudirman 45');
+
+-- buat tabel material invoice
+CREATE TABLE material_invoices (
+    po_id VARCHAR(50) PRIMARY KEY,
+    date DATE NOT NULL,
+    material_cost DECIMAL(10, 2) NOT NULL,
+    shipping_cost DECIMAL(10, 2) NOT NULL
+);
+-- isi dummy
+INSERT INTO material_invoices (po_id, date, material_cost, shipping_cost) VALUES
+('PO-2025-001', '2025-05-10', 550.00, 45.00),
+('PO-2025-002', '2025-05-12', 1200.75, 80.00);
+
+-- buat tabel purchase order
+CREATE TABLE purchase_orders (
+    po_id VARCHAR(50) PRIMARY KEY,
+    company_name VARCHAR(255) NOT NULL,
+    company_address TEXT NOT NULL,
+    material_id VARCHAR(50) NOT NULL,
+    vendor_id VARCHAR(50) NOT NULL,
+    purchase_order_qty INT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'Pending';
+);
+
+-- isi dummy data
+INSERT INTO purchase_orders (po_id, company_name, company_address, material_id, vendor_id, purchase_order_qty) VALUES
+('PO-A01', 'Supplier Utama', 'Jl. Industri No. 1', 'MAT-001', 'VEND-A', 150,'Pending'),
+('PO-A02', 'Bahan Baku Jaya', 'Jl. Logam No. 22', 'MAT-002', 'VEND-B', 300, 'Pending');
+
+--TABLE BAGIAN PRODUCTION dan WAREHOUSE
+CREATE TABLE materials (
+    material_id VARCHAR(50) PRIMARY KEY,
+    material_name VARCHAR(255) NOT NULL,
+    material_description TEXT,
+    material_qty INT NOT NULL,
+    storage_location VARCHAR(100)
+);
+INSERT INTO materials (material_id, material_name, material_description, material_qty, storage_location) VALUES
+('MAT-001', 'Steel Plate 5mm', 'Standard 5mm thick steel plate', 200, 'Aisle 1, Rack A'),
+('MAT-002', 'Aluminum Rod 10mm', '10mm diameter aluminum rod', 550, 'Aisle 2, Rack B'),
+('MAT-003', 'ABS Plastic Pellets', 'High-impact ABS pellets for injection molding', 1500, 'Warehouse 2, Bin 3');
+
+CREATE TABLE products (
+    product_id VARCHAR(50) PRIMARY KEY,
+    product_name VARCHAR(255) NOT NULL,
+    product_description TEXT,
+    product_qty INT NOT NULL,
+    storage_date DATE,
+    storage_location VARCHAR(100)
+);
+
+INSERT INTO products (product_id, product_name, product_description, product_qty, storage_date, storage_location) VALUES
+('PROD-A1', 'Standard Widget', 'A standard 10x10cm widget.', 120, '2025-06-10', 'Finished Goods, Shelf 1'),
+('PROD-B2', 'Large Gadget', 'A large 50x50cm gadget for industrial use.', 45, '2025-06-11', 'Finished Goods, Shelf 2'),
+('PROD-C3', 'Small Component', 'A small electronic component.', 2500, '2025-06-09', 'Component Bins, Section A');
+
+CREATE TABLE material_requests (
+    request_id INT AUTO_INCREMENT PRIMARY KEY,
+    material_id VARCHAR(50) NULL, -- Changed from NOT NULL to NULL
+    material_type VARCHAR(255),
+    demand_qty INT NOT NULL,
+    request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) NOT NULL DEFAULT 'Pending' AFTER demand_qty;
+    FOREIGN KEY (material_id) REFERENCES materials(material_id) ON DELETE SET NULL
+);
+
+INSERT INTO material_requests (material_id, material_type, demand_qty, request_date) VALUES
+('MAT-001', 'Plate Steel', 50, '2025-06-01 09:15:00','Pending'),
+('MAT-003', 'Raw Plastic Pellets', 200, '2025-06-03 14:30:00','Pending'),
+('MAT-001', 'Plate Steel', 75, '2025-06-05 11:00:00','Pending'),
+('MAT-002', 'Aluminum Stock', 120, '2025-06-08 10:05:00', 'Pending');
+
+CREATE TABLE material_good_receipts (
+    good_receipt_id VARCHAR(50) PRIMARY KEY,
+    po_id VARCHAR(50) NOT NULL,
+    material_type VARCHAR(255),
+    good_receipt_date DATE NOT NULL,
+    good_receipt_location VARCHAR(255),
+    FOREIGN KEY (po_id) REFERENCES purchase_orders(po_id) ON DELETE CASCADE
+);
+
+INSERT INTO material_good_receipts (good_receipt_id, po_id, material_type, good_receipt_date, good_receipt_location) VALUES
+('GR-001', 'PO-A01', 'Steel Plate', '2025-06-08', 'Receiving Bay 1'),
+('GR-002', 'PO-A02', 'Aluminum Stock', '2025-06-09', 'Receiving Bay 3');
+
+-- TABLE BAGIAN Purchasing
+
+CREATE TABLE purchasing_good_receipts (
+    receipt_id INT AUTO_INCREMENT PRIMARY KEY,
+    po_id VARCHAR(50) NOT NULL,
+    material_type VARCHAR(255),
+    order_qty INT NOT NULL,
+    storage_date DATE,
+    storage_location VARCHAR(255)
+);
+
+INSERT INTO purchasing_good_receipts (po_id, material_type, order_qty, storage_date, storage_location) VALUES
+('PO-A01', 'Steel Plate', 150, '2025-06-08', 'Receiving Dock A'),
+('PO-A02', 'Aluminum Stock', 300, '2025-06-09', 'Receiving Dock C');
+
+CREATE TABLE vendors (
+    vendor_id VARCHAR(50) PRIMARY KEY,
+    vendor_name VARCHAR(255) NOT NULL,
+    vendor_address TEXT,
+    bank_account VARCHAR(50)
+);
+
+INSERT INTO vendors (vendor_id, vendor_name, vendor_address, bank_account) VALUES
+('VEND-A', 'Supplier Utama', 'Jl. Industri No. 1, Jakarta', '123-456-7890'),
+('VEND-B', 'Bahan Baku Jaya', 'Jl. Logam No. 22, Surabaya', '098-765-4321');

@@ -1,0 +1,76 @@
+{% extends "layouts/base_finance.html" %} {% block title %}Product Invoices{%
+endblock %} {% block content %}
+<div class="content-header">
+  <h1>Product Invoice</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_product_invoices') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search by Product ID"
+        />
+        <button type="submit" class="btn btn-dark">Search</button>
+      </div>
+    </form>
+    <a href="{{ url_for('add_product_invoice') }}" class="btn btn-primary"
+      >Add Product Invoice</a
+    >
+  </div>
+</div>
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>CO ID</th>
+        <th>Invoice Date</th>
+        <th>Price</th>
+        <th>Shipping Cost</th>
+        <th>Billing Address</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice in invoices %}
+      <tr>
+        <td>{{ invoice.product_id }}</td>
+        <td>{{ invoice.co_id }}</td>
+        <td>{{ invoice.invoice_date.strftime('%Y-%m-%d') }}</td>
+        <td>{{ "%.2f"|format(invoice.price) }}</td>
+        <td>{{ "%.2f"|format(invoice.shipping_cost) }}</td>
+        <td>{{ invoice.billing_address }}</td>
+        <td>
+          <a
+            href="{{ url_for('update_product_invoice', invoice_id=invoice.product_id) }}"
+            class="btn btn-edit"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('delete_product_invoice', invoice_id=invoice.product_id) }}"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" style="text-align: center">
+          No product invoices found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

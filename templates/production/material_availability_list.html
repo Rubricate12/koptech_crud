@@ -1,0 +1,64 @@
+{% extends "layouts/base_production.html" %} {% block title %}Material
+Availability{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Material Availability</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_material_availability') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search by Material Name"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Material ID</th>
+        <th>Material Name</th>
+        <th>Material Description</th>
+        <th>Material Qty</th>
+        <th>Storage Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for material in materials %}
+      <tr>
+        <td>{{ material.material_id }}</td>
+        <td>{{ material.material_name }}</td>
+        <td>{{ material.material_description }}</td>
+        <td>{{ material.material_qty }}</td>
+        <td>{{ material.storage_location }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" style="text-align: center">No materials found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination-container">
+  <div class="pagination-info">
+    Showing 1 to {{ materials|length }} of {{ materials|length }} entries
+  </div>
+  <div class="pagination-controls">
+    <a href="#" class="page-link disabled">Previous</a>
+    <a href="#" class="page-link active">1</a>
+    <a href="#" class="page-link">Next</a>
+  </div>
+</div>
+{% endblock %}

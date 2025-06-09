@@ -1,0 +1,83 @@
+{% extends "layouts/base_purchasing.html" %} {% block title %}Manage Purchase
+Orders{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Material Purchase Order</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_purchasing_purchase_orders') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search by Company"
+        />
+      </div>
+    </form>
+    <a
+      href="{{ url_for('add_purchasing_purchase_order') }}"
+      class="btn btn-primary"
+      >Add Purchase Order</a
+    >
+  </div>
+</div>
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>PO ID</th>
+        <th>Company Name</th>
+        <th>Address</th>
+        <th>Material ID</th>
+        <th>Vendor ID</th>
+        <th>Qty</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for po in purchase_orders %}
+      <tr>
+        <td>{{ po.po_id }}</td>
+        <td>{{ po.company_name }}</td>
+        <td>{{ po.company_address }}</td>
+        <td>{{ po.material_id }}</td>
+        <td>{{ po.vendor_id }}</td>
+        <td>{{ po.purchase_order_qty }}</td>
+        <td>
+          <span class="status status-{{ po.status|lower }}"
+            >{{ po.status }}</span
+          >
+        </td>
+        <td class="action-cell">
+          <a
+            href="{{ url_for('update_purchasing_purchase_order', po_id=po.po_id) }}"
+            class="btn btn-edit"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('delete_purchasing_purchase_order', po_id=po.po_id) }}"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="8" style="text-align: center">
+          No purchase orders found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

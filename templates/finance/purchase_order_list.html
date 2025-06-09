@@ -1,0 +1,45 @@
+{% extends "layouts/base_finance.html" %} {% block title %}View Purchase
+Orders{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>View Purchase Orders</h1>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>PO ID</th>
+        <th>Company Name</th>
+        <th>Company Address</th>
+        <th>Material ID</th>
+        <th>Vendor ID</th>
+        <th>Purchase Order Qty</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for po in purchase_orders %}
+      <tr>
+        <td>{{ po.po_id }}</td>
+        <td>{{ po.company_name }}</td>
+        <td>{{ po.company_address }}</td>
+        <td>{{ po.material_id }}</td>
+        <td>{{ po.vendor_id }}</td>
+        <td>{{ po.purchase_order_qty }}</td>
+        <td>
+          <span class="status status-{{ po.status|lower }}"
+            >{{ po.status }}</span
+          >
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" style="text-align: center">
+          No purchase orders found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

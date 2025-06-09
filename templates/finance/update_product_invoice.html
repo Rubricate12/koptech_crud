@@ -1,0 +1,75 @@
+{% extends "layouts/base_finance.html" %} {% block title %}Update Product
+Invoice{% endblock %} {% block content %}
+<h1>Update Product Invoice</h1>
+<div class="form-container">
+  <div class="form-header">Edit Product Invoice Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="product_id">Product ID</label
+      ><input
+        type="text"
+        id="product_id"
+        name="product_id"
+        value="{{ invoice.product_id }}"
+        readonly
+      />
+    </div>
+    <div class="form-group">
+      <label for="co_id">Customer Order ID (CO id)</label
+      ><input
+        type="text"
+        id="co_id"
+        name="co_id"
+        value="{{ invoice.co_id }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="invoice_date">Invoice Date</label
+      ><input
+        type="date"
+        id="invoice_date"
+        name="invoice_date"
+        value="{{ invoice.invoice_date.strftime('%Y-%m-%d') }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="price">Price</label
+      ><input
+        type="text"
+        id="price"
+        name="price"
+        value="{{ '%.2f'|format(invoice.price) }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="shipping_cost">Shipping Cost</label
+      ><input
+        type="text"
+        id="shipping_cost"
+        name="shipping_cost"
+        value="{{ '%.2f'|format(invoice.shipping_cost) }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="billing_address">Billing Address</label
+      ><input
+        type="text"
+        id="billing_address"
+        name="billing_address"
+        value="{{ invoice.billing_address }}"
+        required
+      />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-dark">Save</button>
+      <a href="{{ url_for('list_product_invoices') }}" class="btn btn-dark"
+        >Back</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

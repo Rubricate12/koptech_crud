@@ -1,0 +1,84 @@
+{% extends "layouts/base_finance.html" %} {% block title %}Create Customer
+Order{% endblock %} {% block content %}
+<h1>Create Customer Order</h1>
+
+<div class="form-container">
+  <div class="form-header">Add Customer Order Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="co_id">CO id</label>
+      <input
+        type="text"
+        id="co_id"
+        name="co_id"
+        placeholder="Insert CO id"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="customer_name">Customer Name</label>
+      <input
+        type="text"
+        id="customer_name"
+        name="customer_name"
+        placeholder="Insert Customer name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="customer_address">Customer Address</label>
+      <input
+        type="text"
+        id="customer_address"
+        name="customer_address"
+        placeholder="Insert Customer Address"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="product_id">Product id</label>
+      <input
+        type="text"
+        id="product_id"
+        name="product_id"
+        placeholder="Insert Product id"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="order_qty">Order Qty</label>
+      <input
+        type="text"
+        id="order_qty"
+        name="order_qty"
+        placeholder="Insert Order Qty"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="payment_method">Payment Method</label>
+      <input
+        type="text"
+        id="payment_method"
+        name="payment_method"
+        placeholder="Insert Payment Method"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="phone_number">Phone Number</label>
+      <input
+        type="text"
+        id="phone_number"
+        name="phone_number"
+        placeholder="Insert Phone Number"
+        required
+      />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-save">Save</button>
+      <a href="{{ url_for('finance') }}" class="btn btn-back">Back</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

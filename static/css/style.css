@@ -1,0 +1,253 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+nav {
+  margin-bottom: 20px;
+}
+
+.flashes {
+  color: red;
+}
+
+/* --- Styles for Staff Menu Page --- */
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #fdfdfd;
+}
+
+/* Header and Footer Styling */
+.page-header,
+.page-footer {
+  background-color: #1a1a1a;
+  color: white;
+  padding: 1rem;
+  flex-shrink: 0;
+}
+
+.page-footer {
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.landing-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-content-wrapper {
+  width: 100%;
+  height: 100%; /* Take up all the space of the parent */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  max-width: 900px;
+}
+
+.tagline h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+.tagline p {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+}
+
+.start-button {
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #333;
+}
+
+/* --- Styles for Staff Menu Page --- */
+
+.menu-page-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.menu-title {
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem; /* The space between cards */
+  flex-wrap: wrap; /* Allows cards to wrap on smaller screens */
+  margin-bottom: 2.5rem;
+}
+
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Pushes the label to the bottom */
+  width: 150px;
+  height: 200px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: #333;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.menu-card:hover {
+  border-color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.menu-card .card-content {
+  flex-grow: 1; /* This empty div takes up all the space, pushing the label down */
+}
+
+.menu-card .card-label {
+  padding: 0.8rem;
+  font-size: 1rem;
+}
+
+.button-back {
+  display: inline-block;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-back:hover {
+  background-color: #333;
+}
+
+/* --- Styles for Login Page --- */
+
+.login-container {
+  background-color: white;
+  border: 2px solid #e0e0e0;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.login-container h1 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.login-container h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.login-form .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.login-button {
+  padding: 1rem;
+  border: none;
+  background-color: #1a1a1a;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 1rem;
+}
+
+.login-button:hover {
+  background-color: #333;
+}
+
+.forgot-password-link {
+  font-size: 0.85rem;
+  color: #555;
+  text-decoration: none;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+.login-actions {
+  display: flex;
+  justify-content: center; /* Center the buttons */
+  gap: 1rem; /* Create space between the buttons */
+  margin-top: 1.5rem; /* Add some space above the buttons */
+}
+
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  position: relative; /* Needed for positioning the close button */
+}
+
+.alert-success {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+
+.alert-danger {
+  color: #842029;
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.alert-warning {
+  color: #664d03;
+  background-color: #fff3cd;
+  border-color: #ffecb5;
+}
+
+.alert-info {
+  color: #055160;
+  background-color: #cff4fc;
+  border-color: #b6effb;
+}

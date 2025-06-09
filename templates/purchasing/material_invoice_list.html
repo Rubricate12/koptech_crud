@@ -1,0 +1,73 @@
+{% extends "layouts/base_purchasing.html" %} {% block title %}Manage Material
+Invoices{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Material Invoice</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_purchasing_material_invoices') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search by PO id"
+        />
+      </div>
+    </form>
+    <a
+      href="{{ url_for('add_purchasing_material_invoice') }}"
+      class="btn btn-primary"
+      >Add Material Invoice</a
+    >
+  </div>
+</div>
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>PO id</th>
+        <th>Invoice Date</th>
+        <th>Material Cost</th>
+        <th>Shipping Cost</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice in invoices %}
+      <tr>
+        <td>{{ invoice.po_id }}</td>
+        <td>{{ invoice.date.strftime('%Y-%m-%d') }}</td>
+        <td>{{ "%.2f"|format(invoice.material_cost) }}</td>
+        <td>{{ "%.2f"|format(invoice.shipping_cost) }}</td>
+        <td class="action-cell">
+          <a
+            href="{{ url_for('update_purchasing_material_invoice', po_id=invoice.po_id) }}"
+            class="btn btn-edit"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('delete_purchasing_material_invoice', po_id=invoice.po_id) }}"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" style="text-align: center">
+          No material invoices found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

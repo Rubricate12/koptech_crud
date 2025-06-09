@@ -1,0 +1,35 @@
+{% extends "layouts/base_finance.html" %} {% block title %}View Material
+Invoices{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>View Material Invoices</h1>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>PO id</th>
+        <th>Invoice Date</th>
+        <th>Material Cost</th>
+        <th>Shipping Cost</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for invoice in invoices %}
+      <tr>
+        <td>{{ invoice.po_id }}</td>
+        <td>{{ invoice.date.strftime('%Y-%m-%d') }}</td>
+        <td>{{ "%.2f"|format(invoice.material_cost) }}</td>
+        <td>{{ "%.2f"|format(invoice.shipping_cost) }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="4" style="text-align: center">
+          No material invoices found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

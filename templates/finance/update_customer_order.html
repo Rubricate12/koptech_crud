@@ -1,0 +1,84 @@
+{% extends "layouts/base_finance.html" %} {% block title %}Update Customer
+Order{% endblock %} {% block content %}
+<h1>Update Customer Order</h1>
+
+<div class="form-container">
+  <div class="form-header">Edit Customer Order Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="co_id">CO id</label>
+      <input
+        type="text"
+        id="co_id"
+        name="co_id"
+        value="{{ order.co_id }}"
+        readonly
+      />
+    </div>
+    <div class="form-group">
+      <label for="customer_name">Customer Name</label>
+      <input
+        type="text"
+        id="customer_name"
+        name="customer_name"
+        value="{{ order.name }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="customer_address">Customer Address</label>
+      <input
+        type="text"
+        id="customer_address"
+        name="customer_address"
+        value="{{ order.address }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="product_id">Product id</label>
+      <input
+        type="text"
+        id="product_id"
+        name="product_id"
+        value="{{ order.product_id }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="order_qty">Order Qty</label>
+      <input
+        type="text"
+        id="order_qty"
+        name="order_qty"
+        value="{{ order.qty }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="payment_method">Payment Method</label>
+      <input
+        type="text"
+        id="payment_method"
+        name="payment_method"
+        value="{{ order.payment }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="phone_number">Phone Number</label>
+      <input
+        type="text"
+        id="phone_number"
+        name="phone_number"
+        value="{{ order.phone }}"
+        required
+      />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-dark">Save</button>
+      <a href="{{ url_for('finance') }}" class="btn btn-dark">Back</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends "layouts/base_purchasing.html" %} {% block title %}Material Good
+Receipt{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Material Good Receipt</h1>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>PO id</th>
+        <th>Material Type</th>
+        <th>Order Qty</th>
+        <th>Storage Date</th>
+        <th>Storage Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for receipt in receipts %}
+      <tr>
+        <td>{{ receipt.po_id }}</td>
+        <td>{{ receipt.material_type }}</td>
+        <td>{{ receipt.order_qty }}</td>
+        <td>
+          {{ receipt.storage_date.strftime('%Y-%m-%d') if receipt.storage_date
+          else 'N/A' }}
+        </td>
+        <td>{{ receipt.storage_location }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" style="text-align: center">No good receipts found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination-container">
+  <div class="pagination-info">
+    Showing 1 to {{ receipts|length }} of {{ receipts|length }} entries
+  </div>
+  <div class="pagination-controls">
+    <a href="#" class="page-link disabled">Previous</a>
+    <a href="#" class="page-link active">1</a>
+    <a href="#" class="page-link">Next</a>
+  </div>
+</div>
+{% endblock %}

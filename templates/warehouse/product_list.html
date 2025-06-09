@@ -1,0 +1,77 @@
+{% extends "layouts/base_warehouse.html" %} {% block title %}Manage Product
+Availability{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Product Availability</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_warehouse_products') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search by Product Name"
+        />
+      </div>
+    </form>
+    <a href="{{ url_for('add_warehouse_product') }}" class="btn btn-primary"
+      >Add New Product</a
+    >
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Storage Date</th>
+        <th>Location</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ product.product_id }}</td>
+        <td>{{ product.product_name }}</td>
+        <td>{{ product.product_description }}</td>
+        <td>{{ product.product_qty }}</td>
+        <td>
+          {{ product.storage_date.strftime('%Y-%m-%d') if product.storage_date
+          else 'N/A' }}
+        </td>
+        <td>{{ product.storage_location }}</td>
+        <td class="action-cell">
+          <a
+            href="{{ url_for('update_warehouse_product', product_id=product.product_id) }}"
+            class="btn btn-edit"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('delete_warehouse_product', product_id=product.product_id) }}"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7" style="text-align: center">No products found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

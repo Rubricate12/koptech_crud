@@ -1,0 +1,44 @@
+{% extends "layouts/base_warehouse.html" %} {% block title %}Add Good Receipt{%
+endblock %} {% block content %}
+<h1>Add Material Good Receipt</h1>
+<div class="form-container">
+  <div class="form-header">Add Good Receipt Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="good_receipt_id">Good Receipt ID</label>
+      <input type="text" id="good_receipt_id" name="good_receipt_id" required />
+    </div>
+    <div class="form-group">
+      <label for="po_id">Purchase Order ID (PO ID)</label>
+      <input type="text" id="po_id" name="po_id" required />
+    </div>
+    <div class="form-group">
+      <label for="material_type">Material Type</label>
+      <input type="text" id="material_type" name="material_type" />
+    </div>
+    <div class="form-group">
+      <label for="good_receipt_date">Good Receipt Date</label>
+      <input
+        type="date"
+        id="good_receipt_date"
+        name="good_receipt_date"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="good_receipt_location">Good Receipt Location</label>
+      <input
+        type="text"
+        id="good_receipt_location"
+        name="good_receipt_location"
+      />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-save">Save</button>
+      <a href="{{ url_for('list_good_receipts') }}" class="btn btn-back"
+        >Back</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

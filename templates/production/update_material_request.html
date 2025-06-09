@@ -1,0 +1,47 @@
+{% extends "layouts/base_production.html" %} {% block title %}Update Material
+Request{% endblock %} {% block content %}
+<h1>Update Material Request</h1>
+<div class="form-container">
+  <div class="form-header">Edit Material Request Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="material_id">Material ID</label>
+      <input
+        type="text"
+        id="material_id"
+        name="material_id"
+        value="{{ request_data.material_id }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="material_type">Material Type</label>
+      <input
+        type="text"
+        id="material_type"
+        name="material_type"
+        value="{{ request_data.material_type }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="demand_qty">Demand Quantity</label>
+      <input
+        type="number"
+        id="demand_qty"
+        name="demand_qty"
+        value="{{ request_data.demand_qty }}"
+        required
+      />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-dark">Save Changes</button>
+      <a
+        href="{{ url_for('production_material_request') }}"
+        class="btn btn-back"
+        >Back</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

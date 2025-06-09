@@ -1,0 +1,63 @@
+{% extends "layouts/base_warehouse.html" %} {% block title %}Add New Material{%
+endblock %} {% block content %}
+<h1>Add New Material</h1>
+<div class="form-container">
+  <div class="form-header">Add Material Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="material_id">Material ID</label>
+      <input
+        type="text"
+        id="material_id"
+        name="material_id"
+        placeholder="e.g., MAT-004"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="material_name">Material Name</label>
+      <input
+        type="text"
+        id="material_name"
+        name="material_name"
+        placeholder="Enter material name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="material_description">Description</label>
+      <input
+        type="text"
+        id="material_description"
+        name="material_description"
+        placeholder="Enter a brief description"
+      />
+    </div>
+    <div class="form-group">
+      <label for="material_qty">Quantity</label>
+      <input
+        type="number"
+        id="material_qty"
+        name="material_qty"
+        placeholder="Enter current quantity"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="storage_location">Location</label>
+      <input
+        type="text"
+        id="storage_location"
+        name="storage_location"
+        placeholder="e.g., Aisle 3, Rack C"
+      />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-save">Save</button>
+      <a href="{{ url_for('list_warehouse_materials') }}" class="btn btn-back"
+        >Back</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

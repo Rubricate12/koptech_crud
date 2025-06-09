@@ -1,0 +1,33 @@
+{% extends "layouts/base_purchasing.html" %} {% block title %}Add Material
+Invoice{% endblock %} {% block content %}
+<h1>Create Material Invoice</h1>
+<div class="form-container">
+  <div class="form-header">Add Material Invoice Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="po_id">PO id</label>
+      <input type="text" id="po_id" name="po_id" required />
+    </div>
+    <div class="form-group">
+      <label for="date">Invoice Date</label>
+      <input type="date" id="date" name="date" required />
+    </div>
+    <div class="form-group">
+      <label for="material_cost">Material Cost</label>
+      <input type="text" id="material_cost" name="material_cost" required />
+    </div>
+    <div class="form-group">
+      <label for="shipping_cost">Shipping Cost</label>
+      <input type="text" id="shipping_cost" name="shipping_cost" required />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-save">Save</button>
+      <a
+        href="{{ url_for('list_purchasing_material_invoices') }}"
+        class="btn btn-back"
+        >Back</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

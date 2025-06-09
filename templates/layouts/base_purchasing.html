@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %} - Your App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/dashboardStyle.css') }}"
+    />
+  </head>
+  <body>
+    <div class="dashboard-wrapper">
+      <header class="dashboard-header">
+        <div class="header-brand">YourLogo</div>
+        <nav class="header-nav">
+          <a href="#">Home</a>
+          <a href="{{ url_for('logout') }}">Logout</a>
+        </nav>
+      </header>
+      <div class="dashboard-container">
+        <aside class="sidebar">
+          <div class="user-profile">
+            <p class="welcome-text">Welcome!</p>
+            <p class="username">{{ session.username }}</p>
+          </div>
+          <nav class="sidebar-nav">
+            <ul>
+              <li class="nav-title">Purchasing Page</li>
+              <li
+                class="{% if request.endpoint == 'list_purchasing_good_receipts' %}active{% endif %}"
+              >
+                <a href="{{ url_for('list_purchasing_good_receipts') }}"
+                  >Material Good Receipt</a
+                >
+              </li>
+              <li
+                class="{% if 'purchasing_material_invoice' in request.endpoint %}active{% endif %}"
+              >
+                <a href="{{ url_for('list_purchasing_material_invoices') }}"
+                  >Material Invoice</a
+                >
+              </li>
+              <li
+                class="{% if request.endpoint == 'list_purchasing_material_requests' %}active{% endif %}"
+              >
+                <a href="{{ url_for('list_purchasing_material_requests') }}"
+                  >Material Request</a
+                >
+              </li>
+              <li
+                class="{% if 'purchasing_purchase_order' in request.endpoint %}active{% endif %}"
+              >
+                <a href="{{ url_for('list_purchasing_purchase_orders') }}"
+                  >Purchase Order</a
+                >
+              </li>
+              <li
+                class="{% if 'vendor' in request.endpoint %}active{% endif %}"
+              >
+                <a href="{{ url_for('list_vendors') }}">Vendor</a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+        <main class="main-content">
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if
+          messages %} {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+            <span
+              class="close-btn"
+              onclick="this.parentElement.style.display='none';"
+              >&times;</span
+            >
+          </div>
+          {% endfor %} {% endif %} {% endwith %} {% block content %}{% endblock
+          %}
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+{% extends "layouts/base_production.html" %} {% block title %}Create Material
+Request{% endblock %} {% block content %}
+<h1>Material Request</h1>
+<div class="form-container">
+  <div class="form-header">Add Material Request</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="material_id">Material ID</label>
+      <input
+        type="text"
+        id="material_id"
+        name="material_id"
+        placeholder="Enter Material ID (e.g., MAT-001)"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="material_type">Material Type</label>
+      <input
+        type="text"
+        id="material_type"
+        name="material_type"
+        placeholder="e.g., Steel Plate, Plastic Pellets"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="demand_qty">Demand Quantity</label>
+      <input
+        type="number"
+        id="demand_qty"
+        name="demand_qty"
+        placeholder="Enter quantity needed"
+        required
+      />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-save">Save</button>
+      <a
+        href="{{ url_for('production_material_request') }}"
+        class="btn btn-back"
+        >Back</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

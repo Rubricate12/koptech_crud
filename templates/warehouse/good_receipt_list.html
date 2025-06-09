@@ -1,0 +1,72 @@
+{% extends "layouts/base_warehouse.html" %} {% block title %}Material Good
+Receipts{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Material Good Receipt</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_good_receipts') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search by PO ID"
+        />
+      </div>
+    </form>
+    <a href="{{ url_for('add_good_receipt') }}" class="btn btn-primary"
+      >Add New Material Good Receipt</a
+    >
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Good Receipt ID</th>
+        <th>PO ID</th>
+        <th>Material Type</th>
+        <th>Good Receipt Date</th>
+        <th>Good Receipt Location</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for receipt in receipts %}
+      <tr>
+        <td>{{ receipt.good_receipt_id }}</td>
+        <td>{{ receipt.po_id }}</td>
+        <td>{{ receipt.material_type }}</td>
+        <td>{{ receipt.good_receipt_date.strftime('%Y-%m-%d') }}</td>
+        <td>{{ receipt.good_receipt_location }}</td>
+        <td>
+          <a
+            href="{{ url_for('update_good_receipt', receipt_id=receipt.good_receipt_id) }}"
+            class="btn btn-edit"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('delete_good_receipt', receipt_id=receipt.good_receipt_id) }}"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" style="text-align: center">No good receipts found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

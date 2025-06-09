@@ -1,0 +1,72 @@
+{% extends "layouts/base_warehouse.html" %} {% block title %}Manage Material
+Availability{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Material Availability</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_warehouse_materials') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search..."
+        />
+      </div>
+    </form>
+    <a href="{{ url_for('add_warehouse_material') }}" class="btn btn-primary"
+      >Add New Material</a
+    >
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Material ID</th>
+        <th>Material Name</th>
+        <th>Description</th>
+        <th>Qty</th>
+        <th>Location</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for material in materials %}
+      <tr>
+        <td>{{ material.material_id }}</td>
+        <td>{{ material.material_name }}</td>
+        <td>{{ material.material_description }}</td>
+        <td>{{ material.material_qty }}</td>
+        <td>{{ material.storage_location }}</td>
+        <td>
+          <a
+            href="{{ url_for('update_warehouse_material', material_id=material.material_id) }}"
+            class="btn btn-edit"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('delete_warehouse_material', material_id=material.material_id) }}"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" style="text-align: center">No materials found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

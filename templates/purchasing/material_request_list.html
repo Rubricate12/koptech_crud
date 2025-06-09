@@ -1,0 +1,44 @@
+{% extends "layouts/base_purchasing.html" %} {% block title %}View Material
+Requests{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Material Request</h1>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Material ID</th>
+        <th>Material Type</th>
+        <th>Demand Qty</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for req in requests %}
+      <tr>
+        <td>{{ req.material_id }}</td>
+        <td>{{ req.material_type }}</td>
+        <td>{{ req.demand_qty }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="3" style="text-align: center">
+          No material requests found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination-container">
+  <div class="pagination-info">
+    Showing 1 to {{ requests|length }} of {{ requests|length }} entries
+  </div>
+  <div class="pagination-controls">
+    <a href="#" class="page-link disabled">Previous</a>
+    <a href="#" class="page-link active">1</a>
+    <a href="#" class="page-link">Next</a>
+  </div>
+</div>
+{% endblock %}

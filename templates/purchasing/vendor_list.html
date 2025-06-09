@@ -1,0 +1,69 @@
+{% extends "layouts/base_purchasing.html" %} {% block title %}Manage Vendors{%
+endblock %} {% block content %}
+<div class="content-header">
+  <h1>Vendor</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_vendors') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search by Vendor Name"
+        />
+      </div>
+    </form>
+    <a href="{{ url_for('add_vendor') }}" class="btn btn-primary"
+      >Add New Vendor</a
+    >
+  </div>
+</div>
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Vendor ID</th>
+        <th>Vendor Name</th>
+        <th>Vendor Address</th>
+        <th>Bank Account</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vendor in vendors %}
+      <tr>
+        <td>{{ vendor.vendor_id }}</td>
+        <td>{{ vendor.vendor_name }}</td>
+        <td>{{ vendor.vendor_address }}</td>
+        <td>{{ vendor.bank_account }}</td>
+        <td class="action-cell">
+          <a
+            href="{{ url_for('update_vendor', vendor_id=vendor.vendor_id) }}"
+            class="btn btn-edit"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('delete_vendor', vendor_id=vendor.vendor_id) }}"
+            method="post"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure?');"
+          >
+            <button type="submit" class="btn btn-delete">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5" style="text-align: center">No vendors found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

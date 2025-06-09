@@ -1,0 +1,39 @@
+{% extends "layouts/base_warehouse.html" %} {% block title %}Add New Product{%
+endblock %} {% block content %}
+<h1>Add New Product</h1>
+<div class="form-container">
+  <div class="form-header">Add Product Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="product_id">Product ID</label>
+      <input type="text" id="product_id" name="product_id" required />
+    </div>
+    <div class="form-group">
+      <label for="product_name">Product Name</label>
+      <input type="text" id="product_name" name="product_name" required />
+    </div>
+    <div class="form-group">
+      <label for="product_description">Description</label>
+      <input type="text" id="product_description" name="product_description" />
+    </div>
+    <div class="form-group">
+      <label for="product_qty">Quantity</label>
+      <input type="number" id="product_qty" name="product_qty" required />
+    </div>
+    <div class="form-group">
+      <label for="storage_date">Storage Date</label>
+      <input type="date" id="storage_date" name="storage_date" />
+    </div>
+    <div class="form-group">
+      <label for="storage_location">Storage Location</label>
+      <input type="text" id="storage_location" name="storage_location" />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-save">Save</button>
+      <a href="{{ url_for('list_warehouse_products') }}" class="btn btn-back"
+        >Back</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

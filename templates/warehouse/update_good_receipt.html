@@ -1,0 +1,63 @@
+{% extends "layouts/base_warehouse.html" %} {% block title %}Update Good
+Receipt{% endblock %} {% block content %}
+<h1>Update Material Good Receipt</h1>
+<div class="form-container">
+  <div class="form-header">Edit Good Receipt Data</div>
+  <form method="post" class="form-body">
+    <div class="form-group">
+      <label for="good_receipt_id">Good Receipt ID</label>
+      <input
+        type="text"
+        id="good_receipt_id"
+        name="good_receipt_id"
+        value="{{ receipt.good_receipt_id }}"
+        readonly
+      />
+    </div>
+    <div class="form-group">
+      <label for="po_id">Purchase Order ID (PO ID)</label>
+      <input
+        type="text"
+        id="po_id"
+        name="po_id"
+        value="{{ receipt.po_id }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="material_type">Material Type</label>
+      <input
+        type="text"
+        id="material_type"
+        name="material_type"
+        value="{{ receipt.material_type }}"
+      />
+    </div>
+    <div class="form-group">
+      <label for="good_receipt_date">Good Receipt Date</label>
+      <input
+        type="date"
+        id="good_receipt_date"
+        name="good_receipt_date"
+        value="{{ receipt.good_receipt_date.strftime('%Y-%m-%d') }}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="good_receipt_location">Good Receipt Location</label>
+      <input
+        type="text"
+        id="good_receipt_location"
+        name="good_receipt_location"
+        value="{{ receipt.good_receipt_location }}"
+      />
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-dark">Save Changes</button>
+      <a href="{{ url_for('list_good_receipts') }}" class="btn btn-dark"
+        >Back</a
+      >
+    </div>
+  </form>
+</div>
+{% endblock %}

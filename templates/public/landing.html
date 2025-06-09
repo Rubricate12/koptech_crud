@@ -1,0 +1,12 @@
+{% extends "layouts/base_public.html" %} {% block title %}Welcome{% endblock %}
+{% block content %}
+<div class="landing-content-wrapper">
+  <div class="hero-content">
+    <div class="tagline">
+      <h1>COMPANY</h1>
+      <p>TAGLINE</p>
+    </div>
+    <a href="{{ url_for('staff_menu') }}" class="start-button">START</a>
+  </div>
+</div>
+{% endblock %}

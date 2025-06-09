@@ -1,0 +1,69 @@
+{% extends "layouts/base_production.html" %} {% block title %}Product
+Availability{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Product Availability</h1>
+  <div class="actions">
+    <form
+      action="{{ url_for('list_product_availability') }}"
+      method="get"
+      class="search-form"
+    >
+      <div class="search-container">
+        <label for="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          name="search"
+          value="{{ search_query or '' }}"
+          placeholder="Search by Product Name"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Product Description</th>
+        <th>Product Qty</th>
+        <th>Storage Date</th>
+        <th>Storage Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ product.product_id }}</td>
+        <td>{{ product.product_name }}</td>
+        <td>{{ product.product_description }}</td>
+        <td>{{ product.product_qty }}</td>
+        <td>
+          {{ product.storage_date.strftime('%Y-%m-%d') if product.storage_date
+          else 'N/A' }}
+        </td>
+        <td>{{ product.storage_location }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" style="text-align: center">No products found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination-container">
+  <div class="pagination-info">
+    Showing 1 to {{ products|length }} of {{ products|length }} entries
+  </div>
+  <div class="pagination-controls">
+    <a href="#" class="page-link disabled">Previous</a>
+    <a href="#" class="page-link active">1</a>
+    <a href="#" class="page-link">Next</a>
+  </div>
+</div>
+{% endblock %}

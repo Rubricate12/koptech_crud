@@ -1,0 +1,51 @@
+{% extends "layouts/base_warehouse.html" %} {% block title %}View Purchase
+Orders{% endblock %} {% block content %}
+<div class="content-header">
+  <h1>Purchase Order</h1>
+</div>
+
+<div class="table-container">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>PO ID</th>
+        <th>Company Name</th>
+        <th>Company Address</th>
+        <th>Material ID</th>
+        <th>Vendor ID</th>
+        <th>Purchase Order Qty</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for po in purchase_orders %}
+      <tr>
+        <td>{{ po.po_id }}</td>
+        <td>{{ po.company_name }}</td>
+        <td>{{ po.company_address }}</td>
+        <td>{{ po.material_id }}</td>
+        <td>{{ po.vendor_id }}</td>
+        <td>{{ po.purchase_order_qty }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="6" style="text-align: center">
+          No purchase orders found.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="pagination-container">
+  <div class="pagination-info">
+    Showing 1 to {{ purchase_orders|length }} of {{ purchase_orders|length }}
+    entries
+  </div>
+  <div class="pagination-controls">
+    <a href="#" class="page-link disabled">Previous</a>
+    <a href="#" class="page-link active">1</a>
+    <a href="#" class="page-link">Next</a>
+  </div>
+</div>
+{% endblock %}

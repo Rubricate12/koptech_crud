@@ -1,0 +1,26 @@
+{% extends "layouts/base_public.html" %} {% block title %}Staff Menu{% endblock
+%} {% block content %}
+<div class="menu-page-container">
+  <h1 class="menu-title">STAFF MENU</h1>
+
+  <div class="card-container">
+    <a href="{{ url_for('production_material_request') }}" class="menu-card">
+      <div class="card-label">Production</div>
+    </a>
+    <a href="{{ url_for('list_warehouse_materials') }}" class="menu-card">
+      <div class="card-label">Warehouse</div>
+    </a>
+    <a href="{{ url_for('finance') }}" class="menu-card">
+      <div class="card-label">Finance</div>
+    </a>
+    <a
+      href="{{ url_for('login', next=url_for('list_purchasing_good_receipts')) }}"
+      class="menu-card"
+    >
+      <div class="card-label">Purchasing</div>
+    </a>
+  </div>
+
+  <a href="{{ url_for('landing') }}" class="button-back">Back</a>
+</div>
+{% endblock %}
